@@ -1,0 +1,106 @@
+{% extends 'base.html' %} {% load static %} {% block title %}
+<title>TrackMyVaccine | Book Appointment</title>
+{% endblock title %} {% block content %}
+{% if alert %}
+<div class="alert alert-danger alert-dismissible fade show" role="alert">
+  <strong>Invalid!!</strong>{{error}} 
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+{% endif %}
+{% if ok %}
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+    <strong>Booked!!</strong>Your vaccination has been booked, please check appointments tab
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+{% endif %}
+<h1 class="text-center my-2 myheading">Book Your Vaccine Now!</h1>
+{% if first %}
+    <div class="container">
+        <form action = "/parent/book1/" method = "POST">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="vaccine"><strong>Vaccine</strong></label>
+                <select class="form-control" id="vaccine" name="vaccine" required>
+                    {% for i in vaccine %}
+                        <option value={{i.id}}>{{i.name}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="dose"><strong>Dose</strong></label>
+                <select class="form-control" id="dose" name="dose" required>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="pincode"><strong>Pincode to search hospitals from</strong></label>
+                <input type="text" class="form-control" id="pincode" name = "pincode" placeholder="413005">
+            </div>
+            <div class="form-group">
+                <label for="city"><strong>City to search hospitals from</strong></label>
+                <input type="text" class="form-control" id="city" name = "city" placeholder="Solapur">
+            </div>
+            <div class="form-group">
+                <label for="dateOfAppointment"><strong>Date Of Appointment</strong></label>
+                <input class="form-control" type="date" id="dateOfAppointment" name="dateOfAppointment" required />
+                <span id="dateerror" class="text-danger font-weight-bold"></span>
+            </div>
+            <button type="submit" class="btn text-white mb-2 bluething">Enter</button>
+        </form>
+    </div>
+{% endif %}
+{% if second %}
+    <div class="container jumbotron">
+        <h1 class="display-4">{{child_name}}</h1>
+        <pre class="lead">Vaccine: {{vaccine_name}}
+Dose: {{dose_number}}
+Date: {{vaccine_date}}
+Pincode: {{pincode}}
+City: {{city}}</pre>
+    </div>
+    {% for i in hospitals %}
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6"> <h3 class="myheading ml-2"> {{i.name}} </h3> </div>
+                <div class="col-sm-6 text-right"> <h3 class="myheading ml-2"> Stock: {{i.stock}} </h3> </div>
+            </div>
+            <div class="container" style="overflow-x: auto;">
+                <div class="row">
+                    {% for j in i.slots %}
+                        <div class="col-sm-3" style="height: 10rem; overflow-y: hidden;">
+                            <div class="card text-white bg-{{j.color}}">
+                                <div class="card-body">
+                                <h5 class="card-title">Slots available: {{j.count}}</h5>
+                                <p class="card-text">{{j.start}}-{{j.end}}</p>
+                                {% if i.stock == 0 %}
+                                    <a href="#" class="btn btn-secondary">Book</a>
+                                {% else %}
+                                    <a href="/parent/book/{{i.id}}/{{v_id}}/{{d_id}}/{{vaccine_date}}/{{j.id}}" class="btn text-white" style="background: #062c55 !important;">Book</a>
+                                {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <hr><br>
+        </div>
+    {% endfor %}
+{% endif %}
+{% endblock content %}
+{% block scripts %}
+<script>
+    var datePickerId = document.getElementById('dateOfAppointment');
+    var myDate = new Date();
+    {% comment %} myDate.setDate(myDate.getDate() + 1); {% endcomment %}
+    datePickerId.min = myDate.toLocaleDateString('en-ca');
+</script>
+{% endblock scripts %}

@@ -1,0 +1,50 @@
+{% extends 'base.html' %} {% load static %} {% block title %}
+<title>TrackMyVaccine | DashBoard</title>
+{% endblock title %} {% block content %}
+<h1 class="text-center myheading my-2">Welcome Back!</h1>
+<div class="container my-3">
+    <div class="row">
+        <div class="col-sm-3 d-flex align-items-stretch">
+            <div class="card text-center">
+                <img class="card-img-top" src="{% static 'images/stock.png' %}" alt="Stock">
+                <div class="card-body">
+                <h5 class="card-title">Stock Vaccine</h5>
+                <p class="card-text">Take a quick look at stock of all vaccines you have. Add or edit any existing stocks you have.</p>
+                <a href="/hospital/stock" class="btn bluething text-white">Stock</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3 d-flex align-items-stretch">
+            <div class="card text-center">
+                <img class="card-img-top" src="{% static 'images/edit.png' %}" alt="Edit">
+                <div class="card-body">
+                <h5 class="card-title">Edit Profile</h5>
+                <p class="card-text">Check your details and edit if required.</p>
+                <a href="/hospital/edit" class="btn bluething text-white">Edit</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3 d-flex align-items-stretch">
+            <div class="card text-center">
+                <img class="card-img-top" src="{% static 'images/appointment.png' %}" alt="Appointment">
+                <div class="card-body">
+                <h5 class="card-title">Appointments</h5>
+                <p class="card-text">Look at all upcoming Appointments of children to be vaccinated</p>
+                <a href="/hospital/appointment" class="btn bluething text-white">Appointments</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3 d-flex align-items-stretch">
+            <div class="card text-center">
+                <img class="card-img-top" src="{% static 'images/slot.png' %}" alt="Appointment">
+                <div class="card-body">
+                <h5 class="card-title">Slot Management</h5>
+                <p class="card-text">Add or edit slots for your hospital when children can be vaccinated</p>
+                <a href="/hospital/slot" class="btn bluething text-white">Slot</a>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+
+{% endblock content %}

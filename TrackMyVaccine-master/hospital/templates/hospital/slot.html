@@ -1,0 +1,72 @@
+{% extends 'base.html' %} {% load static %} {% block title %}
+<title>TrackMyVaccine | Slots</title>
+{% endblock title %} {% block content %}
+{% if n > 0 %}
+<div class="card my-3 w-75 mx-auto bg-light text-center">
+    <div class="card-header"><strong>| Existing Slots |</strong></div>
+    <div class="card-body">
+        <table class="table table-hover">
+            <thead>
+              <tr>
+                <th scope="col">From</th>
+                <th scope="col">To</th>
+                <th scope="col">Count</th>
+              </tr>
+            </thead>
+            <tbody>
+                {% for i in slots %}
+                    <tr>
+                        <td>{{i.start}}</td>
+                        <td>{{i.end}}</td>
+                        <td>{{i.count}}</td>
+                    </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+    </div>
+</div>
+{% endif %}
+<div class="container">
+<div class="card text-center text-black">
+    <div class="card-header"><strong>| Slot Management | {{name}}</strong></div>
+    <div class="card-body">
+        <form method="POST">
+            {% csrf_token %}
+            <div class="form-row">
+            <div class="form-group col-sm-12 text-left">
+                <label for="n"><strong>Number of Slots</strong></label>
+                <input type="number" step = "1" min="1" max="5" class="form-control" id="n" name="n">
+            </div>
+            </div>
+            <div id="container"></div>
+            <button type="button" class="btn bluething text-white" data-toggle="modal" data-target="#exampleModal">Modify</button>
+            <button type="submit" id="submitbutton" class="btn btn-success" hidden></button>
+        </form>
+    </div>
+</div>
+</div>
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Confirm</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>This will <strong>cancel all upcoming appointments.</strong> Parents will be informed via mail about this. Are you sure you want to continue?</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn bluething text-white" onclick="document.getElementById('submitbutton').click()">Save changes</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+</div>
+
+
+{% endblock content %}
+{% block scripts %}
+<script src="{% static 'js/slot.js' %}"></script>
+{% endblock scripts %}

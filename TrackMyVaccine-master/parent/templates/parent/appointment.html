@@ -1,0 +1,98 @@
+{% extends 'base.html' %} {% load static %} {% block title %}
+<title>TrackMyVaccine | Appointment</title>
+{% endblock title %} {% block content %}
+<div class="jumbotron jumbotron-fluid mx-3 my-3 border rounded">
+    <div class="container">
+      <h1 class="display-4">Child Name: {{child.name}}</h1>
+      <p class="lead">Child Age: {{child.age}} weeks</p>
+      <p class="lead">Child Gender: {{child.gender}}</p>
+    </div>
+  </div>
+<div class="container-fluid ml-5">
+    <div class="row">
+        <div class="col-sm-2 border rounded mx-2">
+          <div class="scrollable" style="overflow-y: auto;max-height: 1100px;">
+            <h5 class="text-center my-2 myheading">Previous Taken Vaccines</h5>
+            <ul class="list-group">
+              {% for i in taken_vaccines %}
+                <li class="list-group-item align-items-center my-2 mx-2">
+                  {{i.name}}
+                  <span>Dose: {{i.dose}}</span>
+                  <span class="badge badge-pill text-white bluething">{{i.date}}</span>
+                </li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+        <div class="col-sm-7 border rounded text-center mx-2">
+          <div class="row mx-2 my-2">
+            <div class="col-sm-12">
+              <h1 class="text-center my-2 myheading">Appointments</h1>
+            </div>
+          </div>
+          <div class="row mx-2 my-2">
+            <div class="col-sm-12">
+              <div class="alert alert-secondary" role="alert">
+                Want to book and appointment? <a href="/parent/book" class="alert-link">Book Now!</a>
+              </div>
+            </div>
+          </div>
+          <div class="row mx-2 my-2">
+            <div class="col-sm-12 border rounded">
+              <h1 class="text-center my-2 myheading">Upcoming Appointments</h1>
+              <div class="container-fluid" style="overflow-x: auto;">
+                <div class="row flex-row flex-nowrap">
+                  {% for i in upcoming_appointments %}
+                    <div class="col-4">
+                      <div class="card" style = "height: 15rem;">
+                        <div class="card-body">
+                          <h5 class="card-title my-5">{{i.name}}</h5>
+                          <p class="card-text"><strong>Dose number:</strong> {{i.dose}}</p>
+                          <p class="card-text"><strong>On:</strong> {{i.date}}</p>
+                          <p class="card-text"><strong>At:</strong> {{i.hospital}}</p>
+                          <a href="/parent/appointment/cancel/{{i.a_id}}" class="btn btn-danger text-center">Cancel</a>
+                        </div>
+                      </div>
+                    </div>
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row mx-2 my-2">
+            <div class="col-sm-12 border rounded">
+              <h1 class="text-center my-2 myheading">Upcoming Vaccinations</h1>
+              <div class="container-fluid" style="overflow-x: auto;">
+                <div class="row flex-row flex-nowrap">
+                  {% for i in upcoming_vaccinations %}
+                    <div class="col-4">
+                      <div class="card">
+                        <div class="card-body">
+                          <h5 class="card-title my-5">{{i.name}}</h5>
+                          <p class="card-text"><strong>Dose number:</strong> {{i.dose}}</p>
+                          <p class="card-text"><strong>Within:</strong> {{i.within}} weeks</p>
+                        </div>
+                      </div>
+                    </div>
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+          </div>  
+        </div>
+        <div class="col-sm-2 border rounded mx-2">
+          <div class="scrollable" style="overflow-y: auto;max-height: 1100px;">
+            <h5 class="text-center my-2 myheading">Missed Vaccines</h5>
+            <ul class="list-group">
+              {% for i in missed_vaccines %}
+                <li class="list-group-item align-items-center my-2 mx-2">
+                  {{i.name}}
+                  <span>Dose: {{i.dose}}</span>
+                  <span class="badge text-white bluething badge-pill">Expected at {{i.within}} week</span>
+                </li>
+              {% endfor %}
+          </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

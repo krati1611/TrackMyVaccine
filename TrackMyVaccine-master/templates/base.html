@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" type="image/png" href="{% static 'images/shortcut.png' %}"/>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/all.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/base.css' %}" />
+    {% block title %}{% endblock title %}
+  </head>
+  <body>
+    <div class="contaniner-fluid">
+      <div class="row">
+        <!-- Navbar -->
+        <div class="col-12">
+          <nav>
+            <nav class="navbar navbar-expand-lg navbar-dark bluething">
+              <a class="navbar-brand" href="/">
+                <img src="{% static 'images/shortcut.png' %}" class="mb-2" alt="" height="58" width="58" srcset=""/>
+                TrackMyVaccine
+              </a>
+              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+    
+              <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                  <li class="nav-item dropdown" id ="manager">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="font-size: 22px;">
+                      Manager
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                      <a class="dropdown-item" id = "dashboard" href="#">DashBoard</a>
+                      <a class="dropdown-item" id = "profile" href="#">Profile</a>
+                      <a class="dropdown-item" id = "appointment" href="#">Appointment</a>
+                      <div class="dropdown-divider"></div>
+                      <a class="dropdown-item" id = "stock" href="/hospital/stock" style="display:none;">Stock Management</a>
+                      <a class="dropdown-item" id = "slot" href="/hospital/slot" style="display:none;">Slot Management</a>
+                    </div>
+                  </li>
+                </ul>
+                <div class="btn-group" id="divlogin" style="display:inline;">
+                  <button type="button" class="btn btn-success dropdown-toggle mr-3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    LogIn
+                  </button>
+                  <div class="dropdown-menu">
+                    <a class="dropdown-item" href="/hospital/login">Hospital</a>
+                    <a class="dropdown-item" href="/parent/login">Child</a>
+                  </div>
+                </div>
+                  <div id="divlogout" style="display:none;">
+                    <a href="#" id="logoutbutton" class="btn btn-light">Logout</a>
+                  </div>
+              </div>
+            </nav>
+          </nav>
+        </div>
+      </div>
+    </div>
+    {% block content %}
+    {% endblock content %}
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/popper.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/all.min.js' %}"></script>
+    <script src="{% static 'js/base.js' %}"></script>
+    {% block scripts %}
+    {% endblock scripts %}
+  </body>
+</html>

@@ -1,0 +1,36 @@
+{% extends 'base.html' %} {% load static %} {% block title %}
+<link rel="stylesheet" href="{% static 'css/login.css' %}" />
+<title>TrackMyVaccine | SignIn</title>
+{% endblock title %} {% block content %}
+{% if alert %}
+<div class="alert alert-danger alert-dismissible fade show" role="alert">
+  <strong>{{error}}</strong> Check your details again
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+{% endif %}
+<div class="wrapper">
+  <div class="logo">
+      <img src="{% static 'images/hospital.jpg' %}" alt="logo">
+  </div>
+  <div class="text-center mt-4 name">
+      TrackMyVaccine
+  </div>
+  <form method="POST" class="p-3 mt-3">
+      {% csrf_token %}
+      <div class="form-field d-flex align-items-center">
+          <span class="far fa-user"></span>
+          <input type="email" name="email" id="email" placeholder="Email">
+      </div>
+      <div class="form-field d-flex align-items-center">
+          <span class="fas fa-key"></span>
+          <input type="password" name="password" id="pwd" placeholder="Password">
+      </div>
+      <button type="submit" class="btn mt-3">Login</button>
+  </form>
+  <div class="text-center fs-6">
+      <a href="/hospital/forgot">Forget password?</a> or <a href="/hospital/register">Sign up</a>
+  </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,126 @@
+{% extends 'base.html' %} {% load static %} {% block title %}
+<title>TrackMyVaccine | Appointments</title>
+{% endblock title %} {% block content %}
+<div class="container-fluid text-center" style="overflow-y: auto;max-height: 400px;">
+    <h1 class="my-2 myheading">All Upcoming Appointments</h1>
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th scope="col" class = "table-secondary"><a href="/hospital/appointment/vaccine/" style="text-decoration: none; color: #000000;">Vaccine</a></th>
+                <th scope="col" class = "table-secondary"><a href="/hospital/appointment/dose/" style="text-decoration: none; color: #000000;">Dose</a></th>
+                <th scope="col" class = "table-secondary"><a href="/hospital/appointment/date/" style="text-decoration: none; color: #000000;">Date</a></th>
+                <th scope="col" class = "table-secondary"><a href="/hospital/appointment/slot/" style="text-decoration: none; color: #000000;">Slot</a></th>
+                <th scope="col" class = "table-secondary"><a href="/hospital/appointment/parent/" style="text-decoration: none; color: #000000;">Parent name</a></th>
+                <th scope="col" class = "table-secondary"><a href="/hospital/appointment/d_type/" style="text-decoration: none; color: #000000;">Document</a></th>
+                <th scope="col" class = "table-secondary"><a href="/hospital/appointment/d_number/" style="text-decoration: none; color: #000000;">Doc Number</a></th>
+                <th scope="col" class = "table-secondary"><a href="/hospital/appointment/child/" style="text-decoration: none; color: #000000;">Child Name</a></th>
+                <th scope="col" class = "table-secondary"><a href="/hospital/appointment/dob/" style="text-decoration: none; color: #000000;">Child DOB</a></th>
+                <th scope="col" class = "table-secondary"><a href="/hospital/appointment/gender/" style="text-decoration: none; color: #000000;">Child Gender</a></th>
+                <th scope="col" class = "table-secondary">Document status</th>
+                <th scope="col" class = "table-secondary">Stock Batch</th>
+                <th scope="col" class = "table-secondary">Vaccination status</th>
+            </tr>
+            </thead>
+            <tbody>
+                {% for i in appointments %}
+                    <form method="POST">
+                        {% csrf_token %}
+                        <tr>
+                            <th scope="row">{{i.vaccine_name}}</th>
+                            <td>{{i.dose}}</td>
+                            <td>{{i.date}}</td>
+                            <td>{{i.start}}-{{i.end}}</td>
+                            <td>{{i.parent_name}}</td>
+                            <td>{{i.d_type}}</td>
+                            <td>{{i.d_number}}</td>
+                            <td>{{i.child_name}}</td>
+                            <td>{{i.child_dob}}</td>
+                            <td>{{i.child_gender}}</td>
+                            {% if i.h_status == 0 %}
+                                <td><a href="/hospital/appointment/verifyaadhar/{{i.id}}/" class = "btn btn-warning">Verify Document</a></td>
+                            {% else %}
+                                <td class = "text-success">Person Verified</td>
+                            {% endif %}
+                            {% if i.h_status == 0 %}
+                                <td>
+                                    <select class="form-control" disabled>
+                                        <option selected hidden>Choose...</option>
+                                    </select>
+                                </td>
+                            {% elif i.h_status == 1 %}
+                                <td>
+                                    <select name="expiry" class="form-control">
+                                        {% for j in i.expiries %}
+                                            <option value="{{j.id}}">{{j.expiry}}({{j.count}})</option>
+                                        {% endfor %}
+                                    </select>
+                                </td>
+                            {% else %}
+                                <td class = "text-success">{{i.expiries.expiry}}({{i.expiries.count}})</td>
+                            {% endif %}
+                            {% if i.h_status == 0 %}
+                                <td><button class = "btn btn-success" disabled>Vaccine Taken</button></td>
+                            {% elif i.h_status == 1 %}
+                                <td>
+                                    <input type="hidden" name="a_id" value={{i.id}}>
+                                    <button type = "submit" class = "btn btn-success">Vaccine Taken</button>
+                                </td>
+                            {% else %}
+                                <td class = "text-success">Taken</td>
+                            {% endif %}
+                        </tr>
+                    </form>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="container-fluid text-center" style="overflow-y: auto;max-height: 400px;">
+    <h1 class="my-2 myheading">All Appointments</h1>
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th scope="col" class = "table-secondary"><a href="/hospital/appointment/vaccine/" style="text-decoration: none; color: #000000;">Vaccine</a></th>
+                <th scope="col" class = "table-secondary"><a href="/hospital/appointment/dose/" style="text-decoration: none; color: #000000;">Dose</a></th>
+                <th scope="col" class = "table-secondary"><a href="/hospital/appointment/date/" style="text-decoration: none; color: #000000;">Date</a></th>
+                <th scope="col" class = "table-secondary"><a href="/hospital/appointment/slot/" style="text-decoration: none; color: #000000;">Slot</a></th>
+                <th scope="col" class = "table-secondary"><a href="/hospital/appointment/parent/" style="text-decoration: none; color: #000000;">Parent name</a></th>
+                <th scope="col" class = "table-secondary"><a href="/hospital/appointment/d_type/" style="text-decoration: none; color: #000000;">Document</a></th>
+                <th scope="col" class = "table-secondary"><a href="/hospital/appointment/d_number/" style="text-decoration: none; color: #000000;">Doc Number</a></th>
+                <th scope="col" class = "table-secondary"><a href="/hospital/appointment/child/" style="text-decoration: none; color: #000000;">Child Name</a></th>
+                <th scope="col" class = "table-secondary"><a href="/hospital/appointment/dob/" style="text-decoration: none; color: #000000;">Child DOB</a></th>
+                <th scope="col" class = "table-secondary"><a href="/hospital/appointment/gender/" style="text-decoration: none; color: #000000;">Child Gender</a></th>
+                <th scope="col" class = "table-secondary">Stock Batch</th>
+                <th scope="col" class = "table-secondary">Status</th>
+            </tr>
+            </thead>
+            <tbody>
+                {% for i in all_appointments %}
+                    <tr>
+                        <th scope="row">{{i.vaccine_name}}</th>
+                        <td>{{i.dose}}</td>
+                        <td>{{i.date}}</td>
+                        <td>{{i.start}}-{{i.end}}</td>
+                        <td>{{i.parent_name}}</td>
+                        <td>{{i.d_type}}</td>
+                        <td>{{i.d_number}}</td>
+                        <td>{{i.child_name}}</td>
+                        <td>{{i.child_dob}}</td>
+                        <td>{{i.child_gender}}</td>
+                        <td>{{i.expiry_date}}</td>
+                        {% if i.status == 0 %}
+                            <td class = "text-danger">Failed</td>
+                        {% elif i.status == 1%}
+                            <td class = "text-warning">Pending</td>
+                        {% else %}
+                            <td class = "text-success">Success</td>
+                        {% endif %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock content %}

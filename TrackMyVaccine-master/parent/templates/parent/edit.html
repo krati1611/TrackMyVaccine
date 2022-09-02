@@ -1,0 +1,163 @@
+{% extends 'base.html' %} {% load static %} {% block title %}
+<title>TrackMyVaccine | Edit Profile</title>
+{% endblock title %} {% block content %}
+
+{% if alert %}
+<div class="alert alert-{{status}} alert-dismissible fade show" role="alert">
+  <strong>{{status}}!!</strong>{{message}} 
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+{% endif %}
+
+<div class="card text-center text-black my-3 mx-3">
+    <div class="card-header"><strong>Profile | {{cname}}</strong></div>
+    <div class="card-body">
+      <form method="POST">
+        {% csrf_token %}
+        <div class="form-row">
+          <div class="form-group col-md-6 text-left">
+            <label for="name"><strong>Parent name</strong></label>
+            <input type="text" class="form-control" id="name" name="name" value="{{name}}">
+          </div>
+          <div class="form-group col-md-6 text-left">
+            <label for="email"><strong>Parent Email</strong></label>
+            <input type="email" class="form-control" id="email" name="email" value="{{email}}" readonly>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-6 text-left">
+            <label for="phone"><strong>Parent Phone No.</strong></label>
+            <input type="text" class="form-control" id="phone" name="phone" value="{{phone}}">
+          </div>
+          <div class="form-group col-md-6 text-left">
+            <label for="gender"><strong>Parent Gender</strong></label><br>
+            {% if gender %}
+              <div class="form-check form-check-inline" id ="gender">
+                  <input class="form-check-input" type="radio" name="gender" id="radio1" value="Male" checked>
+                  <label class="form-check-label" for="radio1"><strong>Male</strong></label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="gender" id="radio2" value="Female">
+                <label class="form-check-label" for="radio2"><strong>Female</strong></label>
+              </div>
+            {% else %}
+              <div class="form-check form-check-inline" id ="gender">
+                  <input class="form-check-input" type="radio" name="gender" id="radio3" value="Male">
+                  <label class="form-check-label" for="radio3"><strong>Male</strong></label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="gender" id="radio4" value="Female" checked>
+                <label class="form-check-label" for="radio4"><strong>Female</strong></label>
+              </div>
+            {% endif %}
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-4 text-left">
+            <label for="cname"><strong>Child Name</strong></label>
+            <input type="text" class="form-control" id="cname" name="cname" value="{{cname}}">
+          </div>
+          <div class="form-group col-sm-4 text-left">
+            <label id="birthday" for="cdob"><strong>Child DOB</strong></label>
+            <input class="form-control" type="date" id="cdob" name="cdob" value={{cdob}} required />
+            <span id="dateerror" class="text-danger font-weight-bold"></span>
+          </div>
+          <div class="form-group col-md-4 text-left">
+            <label for="gender"><strong>Child Gender</strong></label><br>
+            {% if cgender %}
+              <div class="form-check form-check-inline" id ="cgender">
+                  <input class="form-check-input" type="radio" name="cgender" id="radio5" value="Male" checked>
+                  <label class="form-check-label" for="radio5"><strong>Male</strong></label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="cgender" id="radio6" value="Female">
+                  <label class="form-check-label" for="radio6"><strong>Female</strong></label>
+                </div>
+              </div>
+              {% else %}
+                <div class="form-check form-check-inline" id ="cgender">
+                    <input class="form-check-input" type="radio" name="cgender" id="radio7" value="Male">
+                    <label class="form-check-label" for="radio7"><strong>Male</strong></label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="cgender" id="radio8" value="Female" checked>
+                    <label class="form-check-label" for="radio8"><strong>Female</strong></label>
+                  </div>
+                </div>
+            {% endif %}
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-6 text-left">
+            <label for="city"><strong>City</strong></label>
+            <input type="text" class="form-control" name="city" id="city" value="{{city}}">
+          </div>
+          <div class="form-group col-md-4 text-left">
+            <label for="state"><strong>State</strong></label>
+            <select id="state" name="state" class="form-control">
+              <option selected hidden>{{state}}</option>
+              <option value="Andhra Pradesh">Andhra Pradesh</option>
+              <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
+              <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+              <option value="Assam">Assam</option>
+              <option value="Bihar">Bihar</option>
+              <option value="Chandigarh">Chandigarh</option>
+              <option value="Chhattisgarh">Chhattisgarh</option>
+              <option value="Dadar and Nagar Haveli">Dadar and Nagar Haveli</option>
+              <option value="Daman and Diu">Daman and Diu</option>
+              <option value="Delhi">Delhi</option>
+              <option value="Lakshadweep">Lakshadweep</option>
+              <option value="Puducherry">Puducherry</option>
+              <option value="Goa">Goa</option>
+              <option value="Gujarat">Gujarat</option>
+              <option value="Haryana">Haryana</option>
+              <option value="Himachal Pradesh">Himachal Pradesh</option>
+              <option value="Jammu and Kashmir">Jammu and Kashmir</option>
+              <option value="Jharkhand">Jharkhand</option>
+              <option value="Karnataka">Karnataka</option>
+              <option value="Kerala">Kerala</option>
+              <option value="Madhya Pradesh">Madhya Pradesh</option>
+              <option value="Maharashtra">Maharashtra</option>
+              <option value="Manipur">Manipur</option>
+              <option value="Meghalaya">Meghalaya</option>
+              <option value="Mizoram">Mizoram</option>
+              <option value="Nagaland">Nagaland</option>
+              <option value="Odisha">Odisha</option>
+              <option value="Punjab">Punjab</option>
+              <option value="Rajasthan">Rajasthan</option>
+              <option value="Sikkim">Sikkim</option>
+              <option value="Tamil Nadu">Tamil Nadu</option>
+              <option value="Telangana">Telangana</option>
+              <option value="Tripura">Tripura</option>
+              <option value="Uttar Pradesh">Uttar Pradesh</option>
+              <option value="Uttarakhand">Uttarakhand</option>
+              <option value="West Bengal">West Bengal</option>
+            </select>
+          </div>
+          <div class="form-group col-md-2 text-left">
+            <label for="zip"><strong>Pincode</strong></label>
+            <input type="text" class="form-control" name="pincode" id="zip" value="{{pincode}}" readonly>
+          </div>
+        </div>
+        {% comment %} <div class="form-group">
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="gridCheck">
+            <label class="form-check-label" for="gridCheck">
+              Agree to our terms and conditions
+            </label>
+          </div>
+        </div> {% endcomment %}
+        <button type="submit" class="btn bluething text-white">Modify</button>
+      </form>
+    </div>
+  </div>
+
+{% endblock content %}
+{% block scripts %}
+<script>
+    var datePickerId = document.getElementById('cdob');
+    var myDate = new Date();
+    datePickerId.max = myDate.toLocaleDateString('en-ca');
+</script>
+{% endblock scripts %}

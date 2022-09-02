@@ -1,0 +1,123 @@
+{% extends 'base.html' %} 
+{% load static %} 
+{% block title %}
+<title>TrackMyVaccine | Home</title> 
+{% endblock title %} 
+{% block content %}
+
+<div class="container-fluid mt-5 w-75">
+    <div class="row">
+      <div class="col-12">
+        <div
+          id="carouselExampleCaptions"
+          class="carousel slide"
+          data-ride="carousel"
+        >
+          <ol class="carousel-indicators">
+            <li
+              data-target="#carouselExampleCaptions"
+              data-slide-to="0"
+              class="active"
+            ></li>
+            <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
+          </ol>
+          <div class="carousel-inner">
+            <div class="carousel-item active" style="height: 30rem;">
+              <img
+                src="{% static '/images/c1.jpg' %}"
+                class="d-block w-100 img-fluid"
+                alt="Vaccination" style="height: 30rem;"
+              />
+              <div class="carousel-caption d-none d-md-block text-dark">
+                <h2>Vaccinate Your Child Against Deadly Diseases</h2>
+              </div>
+            </div>
+            <div class="carousel-item" style="height: 30rem;">
+              <img
+                src="{% static '/images/c2.jpg' %}"
+                class="d-block w-100 img-fluid"
+                alt="Vaccination" style="height: 30rem;"
+              />
+              <div class="carousel-caption d-none d-md-block text-dark">
+                <h2>Vaccinate Your Child Against Deadly Diseases</h2>
+              </div>
+            </div>
+            <div class="carousel-item" style="height: 30rem;">
+              <img
+                src="{% static '/images/c3.jpg' %}"
+                class="d-block w-100 img-fluid"
+                alt="Vaccination" style="height: 30rem;"
+              />
+              <div class="carousel-caption d-none d-md-block text-dark">
+                <h2>Vaccinate Your Child Against Deadly Diseases</h2>
+              </div>
+            </div>
+          </div>
+          <a
+            class="carousel-control-prev"
+            href="#carouselExampleCaptions"
+            role="button"
+            data-slide="prev"
+          >
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a
+            class="carousel-control-next"
+            href="#carouselExampleCaptions"
+            role="button"
+            data-slide="next"
+          >
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+          </a>
+        </div>
+      </div>
+    </div>
+</div>
+<br><br><br>
+<div class="container">
+    <div class="container-fluid">
+        <br><h2 class = "text-center">Importance of Vaccination</h2><hr><br>
+    </div>
+    <div class="row">
+        <div class="col-sm-6 text-left">
+            <h4>Hepatitis B</h4>
+            <p style="font-size:20px;">Hepatitis B infection; a liver infection caused by the Hepatitis B virus. The Hepatitis B vaccine can be provided alone or in combination vaccines that also help protect against other diseases, as part of routine immunization for infants. Consult with your healthcare professional for further information.</p>
+        </div>
+        <div class="col-sm-6 text-center">
+            <img src="{% static '/images/hepb.jpg' %}" alt="HepB" style="height: 20rem;">
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-sm-6 text-center">
+            <img src="{% static '/images/baby.jpg' %}" alt="BCG" style="height: 20rem;">
+        </div>
+        <div class="col-sm-6 text-right">
+            <h4>BCG</h4>
+            <p style="font-size:20px;">To be given: Before discharge. BCG is currently the only available TB vaccine and can help protect against tuberculosis infection. The BCG vaccine can be provided as part of routine immunization for infants. Consult with your healthcare professional for further information.</p>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-sm-6 text-left">
+            <h4>OPV</h4>
+            <p style="font-size:20px;">The polio vaccine can be provided alone or included in combination vaccines that also help protect against other diseases, as part of routine immunization for infants. Unfortunately, there is no cure for the disease. Consult with your healthcare professional for further information.</p>
+        </div>
+        <div class="col-sm-6 text-center">
+            <img src="{% static '/images/baby2.webp' %}" alt="OPV" style="height: 20rem;">
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-sm-6 text-center">
+            <img src="{% static '/images/baby3.png' %}" alt="DTP" style="height: 20rem;">
+        </div>
+        <div class="col-sm-6 text-right">
+            <h4>DTP</h4>
+            <p style="font-size:20px;">The diphtheria, tetanus, and pertussis vaccinations are included in combination vaccines that also help protect against other diseases, as part of routine immunization for infants.Consult with your healthcare professional for further information.</p>
+        </div>
+    </div>
+</div>
+{% endblock content %}

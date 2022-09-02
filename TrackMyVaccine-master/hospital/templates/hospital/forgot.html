@@ -1,0 +1,64 @@
+{% extends 'base.html' %} {% load static %} {% block title %}
+<title>TrackMyVaccine | Forgot Password</title>
+{% endblock title %} {% block content %}
+<div id="email_div" class="my-3 mx-3" style="display: block;" >
+    <label for="email">Email</label>
+    <input type="text" class="form-control" name="email" id="email">
+    <button  class = "btn bluething text-white my-2" onclick="ajax_send_otp()">Send OTP</button>
+</div>
+<div id="verify_text_div"></div>
+<div id="otp_div" class="my-3 mx-3" style="display: none;" >
+
+    <label for="email">OTP</label>
+    <input type="text" class="form-control" name="otp" id="otp">
+    <button  class = "btn bluething text-white my-2" onclick="verify_otp()">Verify</button>
+</div>
+<br>
+<div id="form_div" class="my-3 mx-3" style="display: none;" >
+    <form action="/hospital/changepassword/" method="post">
+        {% csrf_token %}
+        <label for="email">Email</label>
+        <input type="text" class="form-control" name="email" id="email">
+        <label for="password">Password</label>
+        <input type="password" class="form-control" name="password" id="password">
+        <input class = "btn bluething text-white my-2" type="submit" value="Sign In">
+    </form>
+</div>
+
+{% endblock content %}
+
+{% block scripts %}
+<script>
+     var otp_from_back="";
+     function ajax_send_otp(){
+        document.getElementById("email_div").style.display='none';
+        email = document.getElementById("email");
+      $.post("/hospital/forgot/",
+          {
+              "email":email.value,
+              "csrfmiddlewaretoken":"{{csrf_token}}"
+          },
+          function(data, status){
+              if(status=="success"){
+                  otp_from_back = data;
+                  document.getElementById("otp_div").style.display='block';
+                  }
+     }
+     );
+     }
+    function verify_otp(){
+        var user_otp=document.getElementById("otp").value;
+        if (user_otp==otp_from_back){
+            document.getElementById("verify_text_div").style.color="green";            
+            document.getElementById("verify_text_div").innerHTML="OTP Verified";
+            document.getElementById("otp_div").style.display="none";
+            document.getElementById("form_div").style.display="block";
+        }
+        else{
+            document.getElementById("verify_text_div").style.color="red";
+            document.getElementById("verify_text_div").innerHTML="Try Again!!";
+        }
+    } 
+ </script>
+
+{% endblock scripts %}

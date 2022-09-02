@@ -1,0 +1,120 @@
+{% extends 'base.html' %} {% load static %} {% block title %}
+<title>TrackMyVaccine | Stock</title>
+{% endblock title %} {% block content %}
+<h1 class="text-center myheading my-2">Vaccine Stock</h1>
+<div class="card my-3 w-75 mx-auto bg-light text-center">
+    <div class="card-body">
+        <div class="scrollable" style="overflow-y: auto;max-height: 300px;">
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th scope="col" class = "table-secondary">Name</th>
+                    <th scope="col" class = "table-secondary">Stock</th>
+                    <th scope="col" class = "table-secondary">Prevents</th>
+                    <th scope="col" class = "table-secondary">Dose 1 Age(weeks)</th>
+                    <th scope="col" class = "table-secondary">Dose 2 (weeks)</th>
+                    <th scope="col" class = "table-secondary">Dose 3 (weeks)</th>
+                    <th scope="col" class = "table-secondary">Dose 4 (weeks)</th>
+                    <th scope="col" class = "table-secondary">Dose 5 (weeks)</th>
+                    <th scope="col" class = "table-secondary">Date of Last stocked</th>
+                    <th scope="col" class = "table-secondary">Date of Last Used</th>
+                </tr>
+                </thead>
+                <tbody>
+                    {% for vaccine in vaccines %}
+                        <tr>
+                            <th scope="row">{{vaccine.name}}</th>
+                            <td>{{vaccine.count}}</td>
+                            <td>{{vaccine.prevents}}</td>
+                            <td>{{vaccine.d1}}</td>
+                            <td>{{vaccine.d2}}</td>
+                            <td>{{vaccine.d3}}</td>
+                            <td>{{vaccine.d4}}</td>
+                            <td>{{vaccine.d5}}</td>
+                            <td>{{vaccine.doli}}</td>
+                            <td>{{vaccine.dolu}}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<h1 class="text-center myheading my-2">Stock Expiry</h1>
+<div class="card my-3 w-75 mx-auto bg-light text-center">
+    <div class="card-body">
+        <div class="scrollable" style="overflow-y: auto;max-height: 300px;">
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th scope="col" class = "table-secondary">Name</th>
+                    <th scope="col" class = "table-secondary">Count</th>
+                    <th scope="col" class = "table-secondary">Date of stocked</th>
+                    <th scope="col" class = "table-secondary">Expiry</th>
+                    <th scope="col" class = "table-secondary">Remove</th>
+                </tr>
+                </thead>
+                <tbody>
+                    {% for i in expiry %}
+                        <tr>
+                            <th scope="row">{{i.name}}</th>
+                            <td>{{i.count}}</td>
+                            <td>{{i.intake}}</td>
+                            <td>{{i.expiry}}</td>
+                            <td><a href="/hospital/expiryremove/{{i.id}}/" class = "btn btn-danger">Remove Stock</a></td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<br>
+<div class="container">
+    <div class="row text-center">
+        <div class="col-sm-12"><h1 class="myheading my-2">Add New Stock</h1></div>
+    </div>
+    <form class="form" method="POST">
+        {% csrf_token %}
+        <div class="form-row">
+            <div class="form-group col-sm-4">
+                <label for="vaccine"><strong>Vaccine</strong></label>
+                <select id="vaccine" name="vaccine" class="form-control mx-2">
+                    <option selected hidden>Choose...</option>
+                    {% for vaccine in vaccines %}
+                        <option value={{vaccine.id}}>{{vaccine.name}}({{vaccine.count}})</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group col-sm-4">
+                <label for="amount"><strong>Amount</strong></label>
+                <input type="number" step="1" value="10" name="amount" class="form-control mx-2" id="amount" required>
+            </div>
+            <div class="form-group col-sm-4">
+                <label for="expiry"><strong>Date of Expiry</strong></label>
+                <input class="form-control" type="date" id="expiry" name="expiry" required />
+                <span id="dateerror" class="text-danger font-weight-bold"></span>
+            </div>
+        </div>
+        <div class="form-row text-center">
+            <div class="col-sm-12"><button type="submit" class="btn bluething text-white">Confirm Add</button></div> 
+        </div>
+    </form>
+</div>
+<br><br>
+<div class="alert alert-secondary text-center w-75 mx-auto" role="alert">
+    Have new Vaccine? <a href="/hospital/addvaccine" class="alert-link">Add to Stock right now!</a>
+</div>
+<br><br>
+
+{% endblock content %}
+{% block scripts %}
+<script>
+    var datePickerId = document.getElementById('expiry');
+    var myDate = new Date();
+    myDate.setDate(myDate.getDate() + 1);
+    datePickerId.min = myDate.toLocaleDateString('en-ca');
+</script>
+{% endblock scripts %}
